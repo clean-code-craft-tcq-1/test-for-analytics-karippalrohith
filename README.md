@@ -27,8 +27,8 @@ Notification must be sent when a new report is available.
 List the dependencies of the Analysis-functionality.
 
 1. Access to the Server containing the telemetrics in a csv file
-1. Email IDs to which mails need to be send dependency
-1. _enter dependency
+1. Email IDs to which mails need to be send
+1. Write access to server to store the PDF report
 
 (add more if needed)
 
@@ -40,10 +40,10 @@ What is included in the software unit-test? What is not? Fill this table.
 |---------------------------|---------------|---
 Battery Data-accuracy       | No            | We do not test the accuracy of data
 Computation of maximum      | Yes           | This is part of the software being developed
-Off-the-shelf PDF converter | _enter Yes/No | _enter reasoning
-Counting the breaches       | _enter Yes/No | _enter reasoning
-Detecting trends            | _enter Yes/No | _enter reasoning
-Notification utility        | _enter Yes/No | _enter reasoning
+Off-the-shelf PDF converter | Yes			| To check the status of PDF conversion, although it is an available library function.
+Counting the breaches       | Yes 		 	| To publish in PDF report
+Detecting trends            | Yes 		 	| To analyse monthly trend report
+Notification utility        | Yes 		 	| To check if email was send or not
 
 ### List the Test Cases
 
@@ -53,8 +53,8 @@ Add to these tests:
 
 1. Write minimum and maximum to the PDF from a csv containing positive and negative readings
 1. Write "Invalid input" to the PDF when the csv doesn't contain expected data
-1. _enter a test
-1. _enter a test
+1. Create a pdf report every 7 days from a csv
+1. Send a notification in the prescribed mail-ID when a new pdf report is available
 
 (add more)
 
@@ -68,8 +68,8 @@ Enter one part that's real and another part that's faked/mocked.
 |--------------------------|--------------|-----------------------------|---
 Read input from server     | csv file     | internal data-structure     | Fake the server store
 Validate input             | csv data     | valid / invalid             | None - it's a pure function
-Notify report availability | _enter input | _enter output               | _enter fake or mock
-Report inaccessible server | _enter input | _enter output               | _enter fake or mock
-Find minimum and maximum   | _enter input | _enter output               | _enter fake or mock
-Detect trend               | _enter input | _enter output               | _enter fake or mock
-Write to PDF               | _enter input | _enter output               | _enter fake or mock
+Notify report availability | return value if report stored in server | send the mail               | Fake the sending of mail
+Report inaccessible server | Status of server | Send mail             | Fake the sending of mail
+Find minimum and maximum   | internal data-structure | min and max for attribute               | None - it's a pure function for min and max seperately
+Detect trend               | csv data	  | date and time              | None
+Write to PDF               | internal data-structure for every property of each attribute that needs to be written to pdf | pdf report creation status               | Fake the report creation
