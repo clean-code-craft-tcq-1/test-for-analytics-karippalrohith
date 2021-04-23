@@ -1,4 +1,4 @@
-# Test for Analytics
+ Test for Analytics
 
 Design tests for Analytics functionality on a Battery Monitoring System.
 
@@ -29,11 +29,13 @@ List the dependencies of the Analysis-functionality.
 1. Access to the Server containing the telemetrics in a csv file.
 1. Validity of the data in csv file(NULL check, proper format, valid values in proper units).
 1. Write access to server to store the PDF report.
+1. Where to send the notification-is it email or to controller.
+1. How to send the notification-is the email id configured and is it valid? or if it is to controller how it is interfaced.
 1. Scheduling to read out the csv for analysis(continious/daily/weekly scheduling and how to determine it to trigger it again).
-1. Availability of the functionality to create PDF reports from the data.
-1. Availability of the functionality to connect to the mail server to send the emails.
-1. Minimum threshold, Maximum threshold to find out the breaches are configured properly.
-1. Email IDs to which mails need to be send are configured properly and valid.
+1. Availability of the library functionality to create PDF reports from the data.
+1. When the other module is notified, how it can access the pdf report(access for the other module to read it from our server).
+1. Minimum threshold, Maximum threshold to find out the breaches are configured properly(If those values are not configured, it can effect functionality).
+
 
 (add more if needed)
 
@@ -48,7 +50,7 @@ Computation of maximum      | Yes           | This is part of the software being
 Off-the-shelf PDF converter | No			| Its a library function, need not involve in the unit test of this module. It will be covered in the unit test of the library itself.
 Counting the breaches       | Yes 		 	| Part of functionality to be tested
 Detecting trends            | Yes 		 	| To analyse weekly/monthly trend report
-Notification utility        | Yes 		 	| To check if email was send or not whenever a new report is created.
+Notification utility        | Yes 		 	| To check if notification was triggered succesfully or not whenever a new report is created.
 
 ### List the Test Cases
 
@@ -63,8 +65,9 @@ Add to these tests:
 1. Write trend into PDF when continious 30 readings are increasing
 1. Ensure trend is not recorded into PDF when continious 29 readings are increasing and the 30th reading is low compared to previous
 1. Check whether the PDF report is created when data is passed to it
-1. Check whether the mail is triggered when a new PDF is stored in the server
-1. Check whether mail is triggered when a week/month is elapsed
+1. Check whether the notification is triggered when a new PDF is stored in the server
+1. Check whether notification is triggered when a week/month is elapsed
+1. Check whether the PDF report have relevant data when a new report is created.
 
 
 
@@ -80,8 +83,8 @@ Enter one part that's real and another part that's faked/mocked.
 |--------------------------|--------------|-----------------------------|---
 Read input from server     | csv file     | internal data-structure     | Fake the server store
 Validate input             | csv data     | valid / invalid             | None - it's a pure function
-Notify report availability | return value if report stored in server | send the mail               | Fake the sending of mail
-Report inaccessible server | Status of server | Send mail             | Fake the sending of mail
+Notify report availability | Access to server to check if new report is available | Status as available/not available               | Fake  report array in server store
+Report inaccessible server | Status of server | Send mail with content as "server not available"            | Fake the sending of mail
 Find minimum and maximum   | internal data-structure | min and max for attribute               | None - it's a pure function for min and max seperately
 Detect trend               | csv data	  | date and time              | None
 Write to PDF               | internal data-structure for every property of each attribute that needs to be written to pdf | pdf report creation status               | Fake the report creation
