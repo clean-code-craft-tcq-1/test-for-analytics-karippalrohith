@@ -27,15 +27,14 @@ Notification must be sent when a new report is available.
 List the dependencies of the Analysis-functionality.
 
 1. Access to the Server containing the telemetrics in a csv file.
-1. Validity of the data in csv file(NULL check, proper format, valid values in proper units).
-1. Write access to server to store the PDF report.
-1. Where to send the notification-is it email or to controller.
-1. How to send the notification-is the email id configured and is it valid? or if it is to controller how it is interfaced.
-1. Scheduling to read out the csv for analysis(continious/daily/weekly scheduling and how to determine it to trigger it again).
-1. Availability of the library functionality to create PDF reports from the data.
-1. When the other module is notified, how it can access the pdf report(access for the other module to read it from our server).
-1. Minimum threshold, Maximum threshold to find out the breaches are configured properly(If those values are not configured, it can effect functionality).
-1. Will there be a simultaneous update of csv from server and the BMS module read out at same time, so that data inconsistency can occur.
+2. Validity of the data in csv file(NULL check, proper format, valid values in proper units).
+3. Write access to server to store the PDF report.
+4. Where to send the notification-is it email or to controller.
+5. How to send the notification-is the email id configured and is it valid? or if it is to controller how it is interfaced.
+6. Scheduling to read out the csv for analysis(continious/daily/weekly scheduling and how to determine it to trigger it again).
+7. Availability of the library functionality to create PDF reports from the data.
+8. When the other module is notified, how it can access the pdf report(access for the other module to read it from our server).
+9. Minimum threshold, Maximum threshold to find out the breaches are configured properly(If those values are not configured, it can effect functionality).
 
 
 (add more if needed)
@@ -60,16 +59,16 @@ Write tests in the form of `<expected output or action>` from `<input>` / when `
 Add to these tests:
 
 1. Write minimum and maximum to the PDF from a csv containing positive and negative readings
-1. Write "Invalid input" to the PDF when the csv doesn't contain expected data
-1. Check for minimum threshold breach when readings are in the lower boundary region(If Lower Threshold =0, then check for -1,0,1)
-1. Check for maximum threshold breach when readings are in the higher boundary region(If Lower Threshold =1000, then check for 99,100,101)
-1. Write trend into PDF when continious 30 readings are increasing
-1. Ensure trend is not recorded into PDF when continious 29 readings are increasing and the 30th reading is low compared to previous
-1. Check whether the PDF report is created when data is passed to it
-1. Check whether the notification is triggered when a new PDF is stored in the server
-1. Check whether notification is triggered when a week/month is elapsed
-1. Check whether the PDF report have relevant data when a new report is created.
-
+2. Write "Invalid input" to the PDF when the csv doesn't contain expected data
+3. Check for minimum threshold breach when readings are in the lower boundary region(If Lower Threshold =0, then check for -1,0,1)
+4. Check for maximum threshold breach when readings are in the higher boundary region(If Lower Threshold =1000, then check for 99,100,101)
+5. Write trend into PDF when continious 30 readings are increasing
+6. Ensure trend is not recorded into PDF when continious 29 readings are increasing and the 30th reading is low compared to previous
+7. Check whether the PDF report is created when data is passed to it
+8. Check whether the notification is triggered when a new PDF is stored in the server
+9. Check whether notification is triggered when a week/month is elapsed
+10. Check whether the PDF report have relevant data when a new report is created.
+11. Will there be a simultaneous update of csv from server and the BMS module read out at same time, so that data inconsistency can occur.
 
 
 (add more)
