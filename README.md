@@ -1,8 +1,8 @@
-# Test for Analytics
+ Test for Analytics
 
 Design tests for Analytics functionality on a Battery Monitoring System.
 
-Fill the parts marked '_enter' in the **Tasks** section below.
+Fill the parts marked 'enter' in the **Tasks** section below.
 
 ## Analysis-functionality to be tested
 
@@ -26,9 +26,16 @@ Notification must be sent when a new report is available.
 
 List the dependencies of the Analysis-functionality.
 
-1. Access to the Server containing the telemetrics in a csv file
-1. _enter dependency
-1. _enter dependency
+1. Access to the Server containing the telemetrics in a csv file.
+2. Validity of the data in csv file(NULL check, proper format, valid values in proper units).
+3. Write access to server to store the PDF report.
+4. Where to send the notification-is it email or to controller.
+5. How to send the notification-is the email id configured and is it valid? or if it is to controller how it is interfaced.
+6. Scheduling to read out the csv for analysis(continious/daily/weekly scheduling and how to determine it to trigger it again).
+7. Availability of the library functionality to create PDF reports from the data.
+8. When the other module is notified, how it can access the pdf report(access for the other module to read it from our server).
+9. Minimum threshold, Maximum threshold to find out the breaches are configured properly(If those values are not configured, it can effect functionality).
+
 
 (add more if needed)
 
@@ -40,10 +47,10 @@ What is included in the software unit-test? What is not? Fill this table.
 |---------------------------|---------------|---
 Battery Data-accuracy       | No            | We do not test the accuracy of data
 Computation of maximum      | Yes           | This is part of the software being developed
-Off-the-shelf PDF converter | _enter Yes/No | _enter reasoning
-Counting the breaches       | _enter Yes/No | _enter reasoning
-Detecting trends            | _enter Yes/No | _enter reasoning
-Notification utility        | _enter Yes/No | _enter reasoning
+Off-the-shelf PDF converter | No			| Its a library function, need not involve in the unit test of this module. It will be covered in the unit test of the library itself.
+Counting the breaches       | Yes 		 	| Part of functionality to be tested
+Detecting trends            | Yes 		 	| To analyse weekly/monthly trend report
+Notification utility        | Yes 		 	| To check if notification was triggered succesfully or not whenever a new report is created.
 
 ### List the Test Cases
 
@@ -52,9 +59,17 @@ Write tests in the form of `<expected output or action>` from `<input>` / when `
 Add to these tests:
 
 1. Write minimum and maximum to the PDF from a csv containing positive and negative readings
-1. Write "Invalid input" to the PDF when the csv doesn't contain expected data
-1. _enter a test
-1. _enter a test
+2. Write "Invalid input" to the PDF when the csv doesn't contain expected data
+3. Check for minimum threshold breach when readings are in the lower boundary region(If Lower Threshold =0, then check for -1,0,1)
+4. Check for maximum threshold breach when readings are in the higher boundary region(If Lower Threshold =1000, then check for 99,100,101)
+5. Write trend into PDF when continious 30 readings are increasing
+6. Ensure trend is not recorded into PDF when continious 29 readings are increasing and the 30th reading is low compared to previous
+7. Check whether the PDF report is created when data is passed to it
+8. Check whether the notification is triggered when a new PDF is stored in the server
+9. Check whether notification is triggered when a week/month is elapsed
+10. Check whether the PDF report have relevant data when a new report is created.
+11. Will there be a simultaneous update of csv from server and the BMS module read out at same time, so that data inconsistency can occur.
+
 
 (add more)
 
@@ -68,8 +83,8 @@ Enter one part that's real and another part that's faked/mocked.
 |--------------------------|--------------|-----------------------------|---
 Read input from server     | csv file     | internal data-structure     | Fake the server store
 Validate input             | csv data     | valid / invalid             | None - it's a pure function
-Notify report availability | _enter input | _enter output               | _enter fake or mock
-Report inaccessible server | _enter input | _enter output               | _enter fake or mock
-Find minimum and maximum   | _enter input | _enter output               | _enter fake or mock
-Detect trend               | _enter input | _enter output               | _enter fake or mock
-Write to PDF               | _enter input | _enter output               | _enter fake or mock
+Notify report availability | Access to server to check if new report is available | Status as available/not available               | Fake  report array in server store
+Report inaccessible server | Status of server | Send mail with content as "server not available"            | Fake the sending of mail
+Find minimum and maximum   | internal data-structure | min and max for attribute               | None - it's a pure function for min and max seperately
+Detect trend               | csv data	  | date and time              | None
+Write to PDF               | internal data-structure for every property of each attribute that needs to be written to pdf | pdf report creation status               | Fake the report creation
