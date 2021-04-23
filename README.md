@@ -35,6 +35,7 @@ List the dependencies of the Analysis-functionality.
 1. Availability of the library functionality to create PDF reports from the data.
 1. When the other module is notified, how it can access the pdf report(access for the other module to read it from our server).
 1. Minimum threshold, Maximum threshold to find out the breaches are configured properly(If those values are not configured, it can effect functionality).
+1. Will there be a simultaneous update of csv from server and the BMS module read out at same time, so that data inconsistency can occur.
 
 
 (add more if needed)
