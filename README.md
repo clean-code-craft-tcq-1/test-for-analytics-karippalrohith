@@ -26,9 +26,14 @@ Notification must be sent when a new report is available.
 
 List the dependencies of the Analysis-functionality.
 
-1. Access to the Server containing the telemetrics in a csv file
-1. Email IDs to which mails need to be send
-1. Write access to server to store the PDF report
+1. Access to the Server containing the telemetrics in a csv file.
+1. Validity of the data in csv file(NULL check, proper format, valid values in proper units).
+1. Write access to server to store the PDF report.
+1. Scheduling to read out the csv for analysis(continious/daily/weekly scheduling and how to determine it to trigger it again).
+1. Availability of the functionality to create PDF reports from the data.
+1. Availability of the functionality to connect to the mail server to send the emails.
+1. Minimum threshold, Maximum threshold to find out the breaches are configured properly.
+1. Email IDs to which mails need to be send are configured properly and valid.
 
 (add more if needed)
 
@@ -40,10 +45,10 @@ What is included in the software unit-test? What is not? Fill this table.
 |---------------------------|---------------|---
 Battery Data-accuracy       | No            | We do not test the accuracy of data
 Computation of maximum      | Yes           | This is part of the software being developed
-Off-the-shelf PDF converter | Yes			| To check the status of PDF conversion, although it is an available library function.
-Counting the breaches       | Yes 		 	| To publish in PDF report
-Detecting trends            | Yes 		 	| To analyse monthly trend report
-Notification utility        | Yes 		 	| To check if email was send or not
+Off-the-shelf PDF converter | No			| Its a library function, need not involve in the unit test of this module. It will be covered in the unit test of the library itself.
+Counting the breaches       | Yes 		 	| Part of functionality to be tested
+Detecting trends            | Yes 		 	| To analyse weekly/monthly trend report
+Notification utility        | Yes 		 	| To check if email was send or not whenever a new report is created.
 
 ### List the Test Cases
 
@@ -53,8 +58,15 @@ Add to these tests:
 
 1. Write minimum and maximum to the PDF from a csv containing positive and negative readings
 1. Write "Invalid input" to the PDF when the csv doesn't contain expected data
-1. Create a pdf report every 7 days from a csv
-1. Send a notification in the prescribed mail-ID when a new pdf report is available
+1. Check for minimum threshold breach when readings are in the lower boundary region(If Lower Threshold =0, then check for -1,0,1)
+1. Check for maximum threshold breach when readings are in the higher boundary region(If Lower Threshold =1000, then check for 99,100,101)
+1. Write trend into PDF when continious 30 readings are increasing
+1. Ensure trend is not recorded into PDF when continious 29 readings are increasing and the 30th reading is low compared to previous
+1. Check whether the PDF report is created when data is passed to it
+1. Check whether the mail is triggered when a new PDF is stored in the server
+1. Check whether mail is triggered when a week/month is elapsed
+
+
 
 (add more)
 
